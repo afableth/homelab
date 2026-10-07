@@ -9,25 +9,37 @@
     };
   };
 
-  outputs = { self, nixpkgs, comin, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      comin,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
     {
       nixosConfigurations.rtx3060 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
         modules = [
           ./configuration.nix
-	  comin.nixosModules.comin
+          comin.nixosModules.comin
           ({
             services.comin = {
               enable = true;
-              remotes = [{
-                name = "origin";
-                url = "https://github.com/afableth/homelab.git";
-                branches.main.name = "main";
-              }];
+              remotes = [
+                {
+                  name = "origin";
+                  url = "https://github.com/afableth/homelab.git";
+                  branches.main.name = "main";
+                }
+              ];
             };
           })
         ];
       };
+
+      formatter.${system} = pkgs.nixfmt-tree;
     };
 }
