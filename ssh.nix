@@ -5,7 +5,7 @@
 
   services.openssh.settings = {
     TrustedUserCAKeys = "/etc/ssh/ca.pub";
-#    PasswordAuthentication = false;
-#    KbdInteractiveAuthentication = false;
+    #    PasswordAuthentication = false;
+    #    KbdInteractiveAuthentication = false;
   };
 }
