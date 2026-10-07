@@ -60,7 +60,7 @@
   ];
 
   # SSH
-  environment.etc."ssh/ca.pub".source = ./ssh-ca.pub;
+  environment.etc."ssh/ca.pub".text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbidfb92SFVA7qPr6vUqpsRLhFtaEDjngPoYJs/q7bb";
   services.openssh = {
     enable = true;
     settings.TrustedUserCAKeys = "/etc/ssh/ca.pub";
