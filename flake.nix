@@ -23,7 +23,7 @@
     {
       nixosConfigurations.rtx3060 = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./modules/main.nix
           comin.nixosModules.comin
         ];
       };
