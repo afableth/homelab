@@ -77,7 +77,7 @@
         url = "https://github.com/afableth/homelab.git";
         branches = {
           main.name = "main";
-          testing.name = "";
+          testing.name = "develop";
         };
         poller.period = 300;
       }
