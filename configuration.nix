@@ -111,6 +111,7 @@
     open = false;
   };
   hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   system.stateVersion = "26.05"; # DON'T CHANGE!
 
