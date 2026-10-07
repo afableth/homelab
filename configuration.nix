@@ -60,7 +60,8 @@
   ];
 
   # SSH
-  environment.etc."ssh/ca.pub".text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbidfb92SFVA7qPr6vUqpsRLhFtaEDjngPoYJs/q7bb";
+  environment.etc."ssh/ca.pub".text =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbidfb92SFVA7qPr6vUqpsRLhFtaEDjngPoYJs/q7bb";
   services.openssh = {
     enable = true;
     settings.TrustedUserCAKeys = "/etc/ssh/ca.pub";
@@ -95,6 +96,16 @@
     "192.168.1.4"
     "1.1.1.1"
   ];
+
+  # Nvidia GPU
+  hardware.nvidia = {
+    modesetting.enable = true;
+    prime.offload.enable = true;
+    prime.intelBusId = "PCI:0:2:0";
+    prime.nvidiaBusId = "PCI:1:0:0";
+    nvidiaPersistenced = true;
+    open = false;
+  };
 
   system.stateVersion = "26.05"; # DON'T CHANGE!
 
