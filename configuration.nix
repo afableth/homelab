@@ -66,10 +66,6 @@
     git
   ];
   services.openssh.enable = true;
-  services.cockpit = {
-    enable = true;
-    port = 9000;
-  };
 
   # Network
   networking.firewall.allowedTCPPorts = [ 22 ];
