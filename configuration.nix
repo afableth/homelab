@@ -102,6 +102,7 @@
   ];
 
   # Nvidia GPU
+  nixpkgs.config.allowUnfree = true;
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaPersistenced = true;
