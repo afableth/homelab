@@ -22,7 +22,7 @@
               enable = true;
               remotes = [{
                 name = "origin";
-                url = "https://gitlab.com/afableth/homelab.git";
+                url = "https://github.com/afableth/homelab.git";
                 branches.main.name = "main";
               }];
             };
