@@ -110,7 +110,6 @@
   };
   services.xserver.enable = true;
   hardware.graphics.enable = true;
-  hardware.nvidia-container-toolkit.enable = true;
 
   system.stateVersion = "26.05"; # DON'T CHANGE!
 
