@@ -64,11 +64,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
-    curl
-    wget
-    htop
-    python3
-    zfs
   ];
   services.openssh.enable = true;
 
