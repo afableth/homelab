@@ -25,21 +25,6 @@
         modules = [
           ./configuration.nix
           comin.nixosModules.comin
-          ({
-            environment.etc."comin/allowed_signers".text
-              = "hello@afabl.fyi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPnJtuVDN563Leul7aThmEEMaMp3cFU+B0ijPGyn0lf+";
-            services.comin = {
-              enable = true;
-              sshAllowedSignersPath = "/etc/comin/allowed_signers";
-              remotes = [
-                {
-                  name = "origin";
-                  url = "https://github.com/afableth/homelab.git";
-                  branches.main.name = "main";
-                }
-              ];
-            };
-          })
         ];
       };
 

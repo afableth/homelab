@@ -3,17 +3,13 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  config,
-  lib,
   pkgs,
-  ...
 }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./ssh.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -30,34 +26,30 @@
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    #   keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
   # Users
   security.sudo.wheelNeedsPassword = true;
-  users.users.takes = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBteZsu2AShLsWSNRqQmog1c6L3ppd5Wbydnj6BrYfeH"
-    ];
-  };
-
-  users.users.poske = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPnJtuVDN563Leul7aThmEEMaMp3cFU+B0ijPGyn0lf+"
-    ];
+  users.users = {
+    takes = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBteZsu2AShLsWSNRqQmog1c6L3ppd5Wbydnj6BrYfeH"
+      ];
+    };
+    poske = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPnJtuVDN563Leul7aThmEEMaMp3cFU+B0ijPGyn0lf+"
+      ];
+    };
   };
 
   # Packages
@@ -65,7 +57,28 @@
     neovim
     git
   ];
-  services.openssh.enable = true;
+
+  # SSH
+  environment.etc."ssh/ca.pub".source = ./ssh-ca.pub;
+  services.openssh = {
+    enable = true;
+    settings.TrustedUserCAKeys = "/etc/ssh/ca.pub";
+  };
+
+  # Comin
+  services.comin = {
+    enable = true;
+    sshAllowedSignersPath = "/etc/comin/allowed_signers";
+    remotes = [
+      {
+        name = "origin";
+        url = "https://github.com/afableth/homelab.git";
+        branches.main.name = "main";
+      }
+    ];
+  };
+  environment.etc."comin/allowed_signers".text =
+    "hello@afabl.fyi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPnJtuVDN563Leul7aThmEEMaMp3cFU+B0ijPGyn0lf+";
 
   # Network
   networking.firewall.allowedTCPPorts = [ 22 ];
