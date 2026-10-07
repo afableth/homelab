@@ -11,6 +11,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./modules/k3s.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
