@@ -28,6 +28,7 @@
         ];
       };
 
+      packages.${system}.default = self.nixosConfigurations.rtx3060.config.system.build.toplevel;
       formatter.${system} = pkgs.nixfmt-tree;
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
