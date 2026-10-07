@@ -104,14 +104,12 @@
   # Nvidia GPU
   hardware.nvidia = {
     modesetting.enable = true;
-    prime.offload.enable = true;
-    prime.intelBusId = "PCI:0:2:0";
-    prime.nvidiaBusId = "PCI:1:0:0";
     nvidiaPersistenced = true;
     open = false;
   };
-  hardware.opengl.enable = true;
+  services.xserver.enable = true;
   hardware.graphics.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   system.stateVersion = "26.05"; # DON'T CHANGE!
 
