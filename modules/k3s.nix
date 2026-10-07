@@ -1,55 +1,5 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ ... }:
 
-let
-  nginxDeployment = builtins.toJSON {
-    apiVersion = "apps/v1";
-    kind = "Deployment";
-    metadata = {
-      name = "nginx";
-      labels.app = "nginx";
-    };
-    spec = {
-      replicas = 1;
-      selector.matchLabels.app = "nginx";
-      template = {
-        metadata.labels.app = "nginx";
-        spec.containers = [
-          {
-            name = "nginx";
-            image = "nginx:latest";
-            ports = [ { containerPort = 80; } ];
-          }
-        ];
-      };
-    };
-  };
-
-  nginxService = builtins.toJSON {
-    apiVersion = "v1";
-    kind = "Service";
-    metadata = {
-      name = "nginx";
-      labels.app = "nginx";
-    };
-    spec = {
-      selector.app = "nginx";
-      ports = [
-        {
-          protocol = "TCP";
-          port = 80;
-          targetPort = 80;
-          nodePort = 30080;
-        }
-      ];
-      type = "NodePort";
-    };
-  };
-in
 {
   # K3s: lightweight Kubernetes
   services.k3s = {
@@ -59,10 +9,54 @@ in
       "--disable=traefik"
       "--disable=servicelb"
     ];
-    extraManifests = [
-      (pkgs.writeText "nginx-deployment.yaml" nginxDeployment)
-      (pkgs.writeText "nginx-service.yaml" nginxService)
-    ];
+    manifests = {
+      nginx-deployment = {
+        content = {
+          apiVersion = "apps/v1";
+          kind = "Deployment";
+          metadata = {
+            name = "nginx";
+            labels.app = "nginx";
+          };
+          spec = {
+            replicas = 1;
+            selector.matchLabels.app = "nginx";
+            template = {
+              metadata.labels.app = "nginx";
+              spec.containers = [
+                {
+                  name = "nginx";
+                  image = "nginx:latest";
+                  ports = [ { containerPort = 80; } ];
+                }
+              ];
+            };
+          };
+        };
+      };
+      nginx-service = {
+        content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "nginx";
+            labels.app = "nginx";
+          };
+          spec = {
+            selector.app = "nginx";
+            ports = [
+              {
+                protocol = "TCP";
+                port = 80;
+                targetPort = 80;
+                nodePort = 30080;
+              }
+            ];
+            type = "NodePort";
+          };
+        };
+      };
+    };
   };
 
   # Open firewall ports for k3s API and nginx
