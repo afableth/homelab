@@ -105,6 +105,7 @@
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaPersistenced = true;
+    datacenter.enable = true;
     open = false;
   };
   services.xserver.enable = true;
