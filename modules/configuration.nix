@@ -48,6 +48,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
+    podman-compose
   ];
 
   # SSH
@@ -91,6 +92,14 @@
     "192.168.1.4"
     "1.1.1.1"
   ];
+
+  # Podman
+  virtualisation.podman = {
+    enable = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
+
 
   # Nvidia GPU
   nixpkgs.config.allowUnfree = true;
