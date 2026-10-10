@@ -99,8 +99,6 @@
     defaultNetwork.settings.dns_enabled = true;
   };
 
-
-
   # Nvidia GPU
   nixpkgs.config.allowUnfree = true;
   hardware.nvidia = {
