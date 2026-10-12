@@ -1,0 +1,15 @@
+services:
+  llama-server:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda13
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/home/poske/.cache/models:/models"
+    gpus: all
+    command:
+      - --model
+      - /models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
+      - --ui-mcp-proxy
+      - --ctx-size
+      - "0"
+

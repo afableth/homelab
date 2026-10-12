@@ -98,6 +98,20 @@
     enable = true;
     defaultNetwork.settings.dns_enabled = true;
   };
+  environment.etc."my-stack/compose.yaml".source = ./compose.yaml;
+  systemd.services.compose = {
+    description = "Auto start compose";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      WorkingDirectory = "/etc/my-stack";
+      ExecStart = "${pkgs.podman-compose}/bin/podman-compose -f compose.yaml up -d";
+      ExecStop = "${pkgs.podman-compose}/bin/podman-compose -f compose.yaml down";
+      RemainAfterExit = true;
+    };
+    path = [ pkgs.podman ]; # podman-compose needs podman in PATH
+  };
 
   # Nvidia GPU
   nixpkgs.config.allowUnfree = true;
