@@ -5,10 +5,9 @@ services:
       - "8080:8080"
     volumes:
       - "/home/poske/.cache/models:/models:ro"
-    gpus: all
+    devices:
+      - "nvidia.com/gpu=all"
     restart: unless-stopped
     command: >-
       --model /models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
       --ui-mcp-proxy
-      --ctx-size 0
-
