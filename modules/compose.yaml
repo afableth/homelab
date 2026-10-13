@@ -11,3 +11,4 @@ services:
     command: >-
       --model /models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
       --ui-mcp-proxy
+      --ctx-size 0
