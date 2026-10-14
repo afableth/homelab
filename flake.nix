@@ -7,6 +7,10 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ddg-mcp-src = {
+      url = "github:nickclyde/duckduckgo-mcp-server";
+      flake = false;
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       self,
       nixpkgs,
       comin,
+      ddg-mcp-src,
       ...
     }:
     let
@@ -28,6 +33,9 @@
           ./containers/compose.nix
           comin.nixosModules.comin
         ];
+        specialArgs = {
+          inherit ddg-mcp-src;
+        };
       };
 
       packages.${system}.default = self.nixosConfigurations.rtx3060.config.system.build.toplevel;

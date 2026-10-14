@@ -22,6 +22,22 @@
         "type": "github"
       }
     },
+    "ddg-mcp-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788546477,
+        "narHash": "sha256-wI6Q4lBZYzU4VORLwGZowv8D5UfhKaMeqBIQ7u6eRxc=",
+        "owner": "nickclyde",
+        "repo": "duckduckgo-mcp-server",
+        "rev": "8182af3f2295017ca90527a924f48147fbf18d5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nickclyde",
+        "repo": "duckduckgo-mcp-server",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -73,6 +89,7 @@
     "root": {
       "inputs": {
         "comin": "comin",
+        "ddg-mcp-src": "ddg-mcp-src",
         "nixpkgs": "nixpkgs_2"
       }
     },

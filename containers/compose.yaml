@@ -14,7 +14,7 @@ services:
       --ctx-size 0
   duckduckgo-mcp:
     build:
-      context: .
+      context: ddg-mcp/
       dockerfile_inline: |
         FROM python:3.13-slim
         WORKDIR /app
