@@ -12,6 +12,9 @@ services:
       --model /models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
       --ui-mcp-proxy
       --ctx-size 0
+    networks:
+      - homelab
+
   duckduckgo-mcp:
     build:
       context: ddg-mcp/
@@ -21,8 +24,14 @@ services:
         COPY . /app
         RUN pip install --no-cache-dir --upgrade pip \
         && pip install --no-cache-dir .
-        ENTRYPOINT ["python", "-m", "duckduckgo_mcp_server", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "7070"]
+        ENTRYPOINT ["python", "-m", "duckduckgo_mcp_server.server", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "7070"]
         CMD []
     ports:
       - "7070:7070"
     restart: unless-stopped
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    driver: bridge
