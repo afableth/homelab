@@ -17,16 +17,9 @@ services:
       - homelab
 
   duckduckgo-mcp:
-    build:
-      context: ddg-mcp/
-      dockerfile_inline: |
-        FROM python:3.13-slim
-        WORKDIR /app
-        COPY . /app
-        RUN pip install --no-cache-dir --upgrade pip \
-        && pip install --no-cache-dir .
-        ENTRYPOINT ["python", "-m", "duckduckgo_mcp_server.server", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "7070"]
-        CMD []
+    build: ./ddg-mcp
+    image: ddg-mcp:latest
+    command: ["--transport", "streamable-http", "--host", "0.0.0.0", "--port", "7070"]
     ports:
       - "7070:7070"
     restart: unless-stopped
