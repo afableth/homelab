@@ -34,6 +34,15 @@ services:
       - config:/etc/radicale
       - data:/var/lib/radicale
 
+  memos:
+    image: docker.io/neosmemo/memos:stable
+    container_name: memos
+    ports:
+      - "5230:5230"
+    volumes:
+      - "/home/poske/.local/share/memos:/var/opt/memos"
+    restart: unless-stopped
+
 networks:
   homelab:
     driver: bridge
