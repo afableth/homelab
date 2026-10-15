@@ -26,14 +26,6 @@ services:
     networks:
       - homelab
 
-  radicle:
-    image: ghcr.io/kozea/radicale:latest
-    ports:
-      - "5232:5232"
-    volumes:
-      - config:/etc/radicale
-      - data:/var/lib/radicale
-
   memos:
     image: docker.io/neosmemo/memos:stable
     container_name: memos
@@ -46,19 +38,3 @@ services:
 networks:
   homelab:
     driver: bridge
-
-volumes:
-  config:
-    name: radicale-config
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/poske/.local/share/radicale/config
-  data:
-    name: radicale-data
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/poske/.local/share/radicale/data
