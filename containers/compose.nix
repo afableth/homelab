@@ -5,6 +5,11 @@
 }:
 
 {
+  virtualisation.podman = {
+    enable = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
   environment.etc."my-server/compose.yaml".source = ./compose.yaml;
   environment.etc."my-server/ddg-mcp".source = ddg-mcp-src;
   systemd.services.my-server = {

@@ -93,12 +93,6 @@
     "1.1.1.1"
   ];
 
-  # Podman
-  virtualisation.podman = {
-    enable = true;
-    defaultNetwork.settings.dns_enabled = true;
-  };
-
   # Nvidia GPU
   nixpkgs.config.allowUnfree = true;
   hardware.nvidia = {
