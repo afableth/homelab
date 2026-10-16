@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:main-slim
     ports:
       - "3000:8080"
     volumes:
